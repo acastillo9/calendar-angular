@@ -1,0 +1,11 @@
+<div class="border p-1 h-full w-full overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300"
+    [ngClass]="{'bg-gray-100': disabled}">
+    <div class="flex flex-col h-40 mx-auto xl:w-40 lg:w-30 md:w-30 sm:w-full w-10 overflow-hidden">
+        <div class="top h-5 w-full">
+            <span class="text-gray-500">{{ value }}</span>
+        </div>
+        <div class="bottom flex-grow h-30 py-1 w-full cursor-pointer">
+            <app-event *ngFor="let event of events" [title]="event.title" [startDate]="event.startDate" [endDate]="event.endDate" />
+        </div>
+    </div>
+</div>
