@@ -69,4 +69,4 @@
     </table>
   </div>
 </div>
-<app-add-event-modal *ngIf="isOpenAddEventModal" (onClose)="addEvent()" />
+<app-add-event-modal *ngIf="isOpenAddEventModal" (onClose)="isOpenAddEventModal = false" />

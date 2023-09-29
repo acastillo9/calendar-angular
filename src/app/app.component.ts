@@ -30,6 +30,9 @@ export class AppComponent implements OnInit {
   constructor(private eventsService: EventsService) {}
 
   ngOnInit(): void {
+    this.eventsService.events$.subscribe((newEvents) => {
+      this.events.set(newEvents[this.month]);
+    });
     this.initCalendar();
   }
 
@@ -45,18 +48,15 @@ export class AppComponent implements OnInit {
     this.initCalendar();
   }
 
-  addEvent() {
-    this.events.set(this.eventsService.getEventsPerMonth(this.month));
-    this.isOpenAddEventModal = false;
-  }
-
   private initCalendar() {
     this.daysInMonth = getDaysInMonth(this.year, this.month);
     this.firstDayInMonth = getFirstDayInMonth(this.year, this.month);
     this.lastDayPreviousMonth = getDaysInMonth(this.year, this.month - 1);
     this.weeksPerMonth = Math.ceil((this.firstDayInMonth + this.daysInMonth) / 7);
     this.table = this.populateTable(this.weeksPerMonth, this.firstDayInMonth, this.daysInMonth, this.lastDayPreviousMonth);
-    this.events.set(this.eventsService.getEventsPerMonth(this.month));
+    this.eventsService.getEventsPerMonth(this.month).subscribe((events) => {
+      this.events.set(events);
+    });
   }
 
   private moveMonth(count: number) {
